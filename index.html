@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ModelViewer · 纯静态 3D 模型加载器</title>
+
+<script>
+/* GitHub Pages project sites live at /<repo>/. Relative imports resolve
+   against the document's directory, so normalise a slash-less URL before
+   any module, stylesheet or model is requested. Harmless on a root domain. */
+(function () {
+  var p = location.pathname;
+  if (p && p.charAt(p.length - 1) !== '/' &&
+      !/\.[a-z0-9]+$/i.test(p.split('/').pop())) {
+    location.replace(p + '/' + location.search + location.hash);
+  }
+})();
+</script>
+
+<!-- Three.js r185 comes from a public CDN. cdn.config.js races the mirrors
+     and installs the import map before any module is resolved, so the ~9 MB
+     vendor/three/ tree does not need to be uploaded at all. -->
+<script src="./cdn.config.js"></script>
+
+<link rel="icon" type="image/svg+xml" href="./favicon.svg">
+<link rel="stylesheet" href="./codex-shim.css">
+<link rel="stylesheet" href="./styles.css">
+
+<!-- Host shim must load before the gadget; the gadget is the upstream
+     ResourceLoader build with only its CDN base made configurable. -->
+<script src="./mediawiki-shim.js"></script>
+<script src="./gadget-impl.js"></script>
+</head>
+<body>
+
+<div class="app">
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-mark">◈</div>
+      <div>
+        <h1>ModelViewer <span>本地 / Pages 版</span></h1>
+        <p>Miraheze Developers Wiki <code>Template:ModelViewer</code> 的纯静态副本 · 基于 Three.js r185 · 可直接部署到 GitHub Pages</p>
+      </div>
+    </div>
+    <div class="badges">
+      <span class="badge" id="offlineBadge">● 站点纯静态 / 公共 CDN 加速</span>
+      <span class="badge" id="cdnBadge" title="点击查看 / 切换 Three.js CDN 源">three.js: 正在选择 CDN…</span>
+      <span class="badge" id="moduleBadge">gadget: 未注册</span>
+    </div>
+  </header>
+
+  <main class="layout">
+    <aside class="sidebar">
+
+      <section class="panel">
+        <h2><span>01</span> 模型来源</h2>
+        <div class="source-info" id="sourceInfo">正在发现模型…</div>
+        <div class="field">
+          <label for="modelFilter">筛选模型名称</label>
+          <input type="text" id="modelFilter" placeholder="例如 Seia / Bunny / (Band)" spellcheck="false">
+        </div>
+        <div class="field">
+          <label for="modelSelect">模型列表（选中即加载）</label>
+          <select id="modelSelect" size="6"></select>
+        </div>
+        <div class="field">
+          <label for="sourceSelect">加速源</label>
+          <select id="sourceSelect"></select>
+        </div>
+        <div class="btn-row">
+          <button type="button" class="ui-btn" id="refreshModels">刷新列表</button>
+          <label class="ui-btn file-btn" for="fileInput">选择本地文件…</label>
+          <input type="file" id="fileInput" multiple accept=".glb,.gltf,.fbx,.obj,.stl,.dae,.mtl">
+        </div>
+        <div class="field">
+          <label for="urlInput">或输入模型 URL / 相对路径</label>
+          <input type="text" id="urlInput" placeholder="https://example.com/model.glb" spellcheck="false">
+        </div>
+        <div class="field" style="margin-top:10px">
+          <label for="formatSelect">强制指定格式（URL 无扩展名时使用）</label>
+          <select id="formatSelect">
+            <option value="auto">自动推断（按扩展名）</option>
+            <option value="glb">glb</option>
+            <option value="gltf">gltf</option>
+            <option value="fbx">fbx</option>
+            <option value="obj">obj</option>
+            <option value="stl">stl</option>
+            <option value="dae">dae</option>
+          </select>
+        </div>
+        <p class="note">模型文件<strong>不随站点一起部署</strong>：页面部署在 Pages 分支（或 Actions 产物），模型留在 <code>main</code> 分支，由 <code>GitHub Contents API</code> 一次请求列出整个目录（上限 1000 项，无需清单文件）。模型字节走 <code>ghproxy</code> 前缀加速，逐个 <code>HEAD</code> 探测后自动选可用源，失败自动切换。配置见 <code>models.config.json</code>，也可用 <code>?repo=owner/repo&amp;branch=main&amp;dir=models</code> 覆盖。本地开发仍回退到 <code>models/manifest.json</code> / <code>?scan=1</code>。支持 <code>glb / gltf / fbx / obj / stl / dae</code>，可拖文件到画布，OBJ 可同时选中 <code>.mtl</code>。</p>
+      </section>
+
+      <section class="panel">
+        <h2><span>02</span> 视图 / 光照</h2>
+        <div class="preset-row">
+          <button type="button" class="preset-btn active" data-preset="wiki" id="presetWiki">参考站 · unlit</button>
+          <button type="button" class="preset-btn" data-preset="pbr" id="presetPbr">PBR 打光</button>
+          <button type="button" class="preset-btn" data-preset="soft" id="presetSoft">柔和打光</button>
+        </div>
+        <p class="preset-hint">Blue Archive 的贴图已烘焙好卡通明暗。参考站 <code>Module:ModelViewer</code> 用 <code>shading=unlit</code> 直接显示贴图原色；若改成 <code>shaded</code>，半球光 + 平行光 + 环境贴图会二次加光，白色衣料和头发就会过曝发白。</p>
+        <div class="grid2">
+          <div class="field"><label for="height">高度</label><input type="text" id="height" value="480"></div>
+          <div class="field"><label for="fov">视野角 FOV</label><input type="number" id="fov" value="35" min="1" max="150"></div>
+          <div class="field"><label for="background">背景色</label><input type="text" id="background" placeholder="留空 = 透明"></div>
+          <div class="field"><label for="camera">相机 方位,仰角,缩放</label><input type="text" id="camera" value="0,5,1" placeholder="例 0,5,1"></div>
+          <div class="field"><label for="cameraControl">相机控制</label><select id="cameraControl"><option value="orbit">orbit</option><option value="trackball">trackball</option></select></div>
+          <div class="field"><label for="shading">着色</label><select id="shading"><option value="unlit">unlit（参考站）</option><option value="shaded">shaded（PBR）</option><option value="wireframe">wireframe</option></select></div>
+          <div class="field"><label for="environment">环境光</label><select id="environment"><option value="neutral">neutral</option><option value="none">none</option></select></div>
+          <div class="field"><label for="toneMapping">色调映射</label><select id="toneMapping"><option value="aces">aces</option><option value="none">none</option><option value="linear">linear</option><option value="reinhard">reinhard</option><option value="cineon">cineon</option><option value="agx">agx</option></select></div>
+          <div class="field"><label for="exposure">曝光</label><input type="number" id="exposure" value="1" step="0.1" min="0"></div>
+          <div class="field"><label for="hideParts">默认隐藏部件</label><input type="text" id="hideParts" value="optional" placeholder="例 optional"></div>
+          <div class="field"><label for="preload">加载时机</label><select id="preload"><option value="eager">eager（立即）</option><option value="visible">visible（滚动到可见）</option><option value="click">click（点按钮）</option></select></div>
+        </div>
+        <div class="checks">
+          <label><input type="checkbox" id="autorotate"> 自动旋转</label>
+          <label><input type="checkbox" id="grid"> 地面网格</label>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2><span>03</span> 动画</h2>
+        <div class="grid2">
+          <div class="field"><label for="animDefault">默认动画（名称或序号）</label><input type="text" id="animDefault" value="Cafe_Reaction" placeholder="例 Run"></div>
+          <div class="field"><label for="speed">播放速度 %</label><input type="number" id="speed" value="100" min="1"></div>
+        </div>
+        <div class="checks">
+          <label><input type="checkbox" id="autoplay" checked> 自动播放</label>
+          <label><input type="checkbox" id="loop" checked> 循环</label>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2><span>04</span> 描边</h2>
+        <div class="grid2">
+          <div class="field"><label for="outlineColor">颜色</label><input type="text" id="outlineColor" value="#000000"></div>
+          <div class="field"><label for="outlineWidth">宽度 %</label><input type="number" id="outlineWidth" value="25" min="0"></div>
+        </div>
+        <div class="checks"><label><input type="checkbox" id="outline" checked> 启用外轮廓描边</label></div>
+      </section>
+
+      <section class="panel">
+        <h2><span>05</span> 控制条组件</h2>
+        <p class="note">对应模板的 <code>{{ModelViewer/controls}}</code>。勾选后立即重新生成。</p>
+        <div id="controlChecks" class="checks checks-grid"></div>
+      </section>
+
+      <div class="actions">
+        <button type="button" class="ui-btn primary" id="applyBtn">应用 / 重新加载</button>
+        <button type="button" class="ui-btn" id="resetBtn">恢复默认</button>
+      </div>
+    </aside>
+
+    <section class="main">
+      <div class="viewer-card" id="viewerCard">
+        <div class="card-head">
+          <div class="card-title"><span class="dot"></span><strong id="currentModel">未选择模型</strong></div>
+          <span class="status-pill" id="statusPill">等待加载</span>
+        </div>
+        <div id="viewerHost" class="viewer-host"></div>
+        <div id="dropOverlay" class="drop-overlay">松开鼠标，加载这个 3D 模型</div>
+        <div id="cameraRecBadge" class="camera-rec" hidden>● 运镜录制中 · 拖动右侧画布可改变视角</div>
+      </div>
+
+      <div class="card export-card">
+        <h3>导出动画 <small>自定义宽高 · GIF 循环 · 可实时运镜</small></h3>
+        <div class="export-grid">
+          <div class="field">
+            <label for="exportFormat">格式</label>
+            <select id="exportFormat">
+              <option value="mp4">MP4（H.264 / WebCodecs）</option>
+              <option value="gif">GIF（自适应 256 色）</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="exportWidth">宽度 px</label>
+            <input type="number" id="exportWidth" value="512" min="16" max="2048" step="2">
+          </div>
+          <div class="field">
+            <label for="exportHeight">高度 px</label>
+            <input type="number" id="exportHeight" value="512" min="16" max="2048" step="2">
+          </div>
+          <div class="field">
+            <label for="exportFps">帧率 fps</label>
+            <input type="number" id="exportFps" value="30" min="1" max="60">
+          </div>
+          <div class="field">
+            <label for="exportSpeed">录制速度（运镜用时）</label>
+            <select id="exportSpeed">
+              <option value="1" selected>1× · 与动画等长</option>
+              <option value="0.5">0.5× · 两倍时间慢慢拖</option>
+              <option value="2">2× · 快速运镜</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="exportAA">抗锯齿 / 超采样</label>
+            <select id="exportAA">
+              <option value="auto" selected>自动（低分辨率加强）</option>
+              <option value="off">关闭（最快）</option>
+              <option value="2">2× 超采样</option>
+              <option value="4">4× 超采样（最平滑）</option>
+            </select>
+          </div>
+        </div>
+        <div class="ratio-row">
+          <span class="ratio-label">快捷画幅</span>
+          <button type="button" class="ratio-btn active" data-ratio="1">1:1</button>
+          <button type="button" class="ratio-btn" data-ratio="1.777778">16:9</button>
+          <button type="button" class="ratio-btn" data-ratio="0.5625">9:16</button>
+          <button type="button" class="ratio-btn" data-ratio="1.333333">4:3</button>
+          <button type="button" class="ratio-btn" data-ratio="0.75">3:4</button>
+          <button type="button" class="ratio-btn" id="ratioPreview">按预览比例</button>
+          <label class="ratio-lock"><input type="checkbox" id="exportLockRatio"> 锁定当前宽高比</label>
+          <span class="ratio-hint" id="ratioHint">以「高度」为基准换算宽度</span>
+        </div>
+        <div class="checks export-checks">
+          <label><input type="checkbox" id="exportLiveCamera" checked> <strong>跟随鼠标运镜</strong>：导出时拖动右侧画布，视角变化录进视频</label>
+          <label><input type="checkbox" id="exportGifLoop" checked> <strong>GIF 循环播放</strong>（写入 NETSCAPE2.0 无限循环标记；取消勾选则只播放一次）</label>
+          <label><input type="checkbox" id="exportTransparent"> GIF 透明背景（默认使用页面实际的深色背景，边缘更干净）</label>
+        </div>
+        <pre class="export-meta" id="exportMeta">等待模型加载…</pre>
+        <div class="export-progress" id="exportProgress" hidden>
+          <div class="export-bar"><div id="exportBarFill"></div></div>
+          <span id="exportProgressText">0%</span>
+        </div>
+        <div class="btn-row export-actions">
+          <button type="button" class="ui-btn primary" id="exportBtn">导出当前动画</button>
+          <button type="button" class="ui-btn" id="exportCancel" disabled>取消</button>
+        </div>
+        <p class="note">逐帧渲染，直接复用右侧查看器的场景、材质、着色、描边、隐藏部件与相机，按所选帧率把<strong>当前动画从头到尾采样一次</strong>，帧不重复、时长不拉长；GIF 默认写入 <code>NETSCAPE2.0</code> <strong>无限循环标记</strong>，播放器会反复播放这一段，取消「GIF 循环播放」才只播一次（文件名加 <code>_once</code>）。MP4 容器没有循环标记，是否循环由播放器决定。<strong>跟随鼠标运镜</strong>开启时，导出按真实时间推进（约等于动画时长），此时在右侧画布上拖动旋转、滚轮缩放、右键平移都会被逐帧采样进视频，右侧预览显示的正是正在录制的画面；0.5× 速度给你两倍时间做运镜，成片播放速度不变。关掉它则锁定导出开始时的视角并尽快渲染完。<strong>自定义画幅</strong>：宽、高各自独立设置（16–2048 px），横屏、竖屏、方形都可以；快捷画幅按钮以当前高度为基准换算宽度，「按预览比例」直接取右侧画布的宽高比，勾选「锁定当前宽高比」后改任一边另一边会等比跟随。导出相机保持<strong>垂直 FOV 不变</strong>，画幅宽度决定水平视野，所以与页面预览宽高比不同时构图会有差别。默认使用与页面一致的深色不透明背景；勾选上方选项才会输出透明 GIF。<strong>低分辨率抗锯齿</strong>：按输出<strong>短边</strong>判断，≤128 px 默认先以 4× 边长渲染，再逐级减半做 box 滤波缩小，消除 MSAA 样本不足造成的阶梯锯齿与描边断续；可在「抗锯齿」里关闭或指定 2× / 4×，不影响输出尺寸与帧数。宽高自动取偶数（H.264 要求），奇数输入会微调到最近的偶数并显示在状态里。GIF 帧延迟以 1/100 秒为单位，高帧率会被取整；分辨率和帧率越高，编码耗时与内存占用越大。</p>
+      </div>
+
+      <div class="info-row">
+        <div class="card">
+          <h3>事件日志 <small>modelViewer hooks</small></h3>
+          <div id="eventLog" class="log" aria-live="polite"></div>
+        </div>
+        <div class="card">
+          <h3>等价 HTML <small>可复制到自己的 wiki / 页面</small></h3>
+          <pre id="snippet" class="snippet"></pre>
+        </div>
+      </div>
+
+      <p class="footnote">提示：鼠标左键旋转 · 滚轮缩放 · 右键平移。查看器由原版 gadget 驱动，仅把 MediaWiki 宿主环境补齐，并让 Three.js 从公共 CDN 加载（无需上传 vendor 目录）。</p>
+    </section>
+  </main>
+</div>
+
+<script src="./app.js"></script>
+<script src="./encoders.js"></script>
+<script src="./export.js"></script>
+</body>
+</html>

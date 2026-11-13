@@ -1,0 +1,16 @@
+{
+  "mode": "remote",
+  "repo": "",
+  "repoCandidates": ["<owner>/BlueArchiveModels"],
+  "branch": "main",
+  "dir": "",
+  "apiBase": "https://api.github.com",
+  "probe": true,
+  "cacheMinutes": 10,
+  "sources": [
+    { "id": "gh-proxy.com", "prefix": "https://gh-proxy.com/" },
+    { "id": "ghproxy.net", "prefix": "https://ghproxy.net/" },
+    { "id": "ghfast.top", "prefix": "https://ghfast.top/" },
+    { "id": "raw.githubusercontent.com", "prefix": "" }
+  ]
+}

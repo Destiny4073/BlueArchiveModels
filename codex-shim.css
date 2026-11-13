@@ -1,0 +1,229 @@
+/*!
+ * Local replacement for MediaWiki's `codex-styles` module.
+ *
+ * The gadget builds its widgets out of Codex CSS-only components
+ * (cdx-button / cdx-select / cdx-checkbox / cdx-progress-bar) and reads
+ * Codex design tokens such as --color-base and --background-color-progressive.
+ * MediaWiki normally supplies both; here they are defined locally so the
+ * viewer looks the same offline. The gadget's own stylesheet (injected by
+ * mediawiki-shim.js) is layered on top of this file.
+ */
+
+:root {
+    color-scheme: dark;
+
+    --color-base: #e8ebf0;
+    --color-subtle: #98a2b0;
+    --color-error: #ff8f80;
+
+    --background-color-base: #171a1f;
+    --background-color-neutral-subtle: #1d2229;
+    --background-color-neutral: #2a3038;
+    --background-color-error-subtle: #3b2325;
+    --background-color-progressive: #5b8dff;
+    --background-color-interactive: #4c5561;
+    --background-color-interactive-subtle: #252b33;
+    --background-color-disabled: #3a414b;
+    --background-color-disabled-subtle: #21262d;
+
+    --border-color-base: #363d47;
+    --border-color-interactive: #5a6472;
+    --border-color-disabled: #3a414b;
+    --border-color-progressive--focus: #82a6ff;
+}
+
+/* ---- Button ---- */
+.cdx-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4em;
+    box-sizing: border-box;
+    min-height: 32px;
+    padding: 0 12px;
+    border: 1px solid var(--border-color-interactive);
+    border-radius: 4px;
+    background-color: var(--background-color-interactive-subtle);
+    color: var(--color-base);
+    font: inherit;
+    font-size: 0.875rem;
+    line-height: 1.2;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background-color 0.12s ease, border-color 0.12s ease;
+}
+
+.cdx-button:hover:not(:disabled) {
+    background-color: #303844;
+    border-color: #7c8797;
+}
+
+.cdx-button:focus-visible {
+    outline: 2px solid var(--border-color-progressive--focus);
+    outline-offset: 1px;
+}
+
+.cdx-button:disabled {
+    border-color: var(--border-color-disabled);
+    background-color: var(--background-color-disabled-subtle);
+    color: #7d8793;
+    cursor: default;
+}
+
+.cdx-button--action-progressive.cdx-button--weight-primary {
+    border-color: transparent;
+    background-color: var(--background-color-progressive);
+    color: #0c1424;
+    font-weight: 600;
+}
+
+.cdx-button--action-progressive.cdx-button--weight-primary:hover:not(:disabled) {
+    background-color: #7ba4ff;
+}
+
+.cdx-button--icon-only {
+    min-width: 32px;
+    padding: 0 7px;
+}
+
+.model-viewer-icon {
+    fill: currentColor;
+}
+
+/* ---- Select ---- */
+.cdx-select {
+    box-sizing: border-box;
+    min-height: 32px;
+    max-width: 100%;
+    padding: 0 26px 0 10px;
+    border: 1px solid var(--border-color-interactive);
+    border-radius: 4px;
+    background-color: var(--background-color-interactive-subtle);
+    color: var(--color-base);
+    font: inherit;
+    font-size: 0.875rem;
+    cursor: pointer;
+}
+
+.cdx-select:focus-visible {
+    outline: 2px solid var(--border-color-progressive--focus);
+    outline-offset: 1px;
+}
+
+.cdx-select:disabled {
+    border-color: var(--border-color-disabled);
+    background-color: var(--background-color-disabled-subtle);
+    color: #7d8793;
+    cursor: default;
+}
+
+/* ---- Checkbox ---- */
+.cdx-checkbox {
+    display: inline-flex;
+    align-items: center;
+}
+
+.cdx-checkbox--inline {
+    display: inline-flex;
+}
+
+.cdx-checkbox__wrapper {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45em;
+}
+
+.cdx-checkbox__input {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 18px;
+    height: 18px;
+    margin: 0;
+    transform: translateY(-50%);
+    opacity: 0;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.cdx-checkbox__icon {
+    display: inline-block;
+    box-sizing: border-box;
+    width: 18px;
+    height: 18px;
+    flex: 0 0 18px;
+    border: 1px solid var(--border-color-interactive);
+    border-radius: 2px;
+    background-color: var(--background-color-interactive-subtle);
+}
+
+.cdx-checkbox__input:checked + .cdx-checkbox__icon {
+    border-color: var(--background-color-progressive);
+    background-color: var(--background-color-progressive);
+}
+
+.cdx-checkbox__input:checked + .cdx-checkbox__icon::after {
+    content: "";
+    display: block;
+    width: 4px;
+    height: 9px;
+    margin: 1px 0 0 6px;
+    border: solid #0c1424;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.cdx-checkbox__input:focus-visible + .cdx-checkbox__icon {
+    outline: 2px solid var(--border-color-progressive--focus);
+    outline-offset: 2px;
+}
+
+.cdx-checkbox__input:disabled {
+    cursor: default;
+}
+
+.cdx-checkbox__input:disabled + .cdx-checkbox__icon {
+    border-color: var(--border-color-disabled);
+    background-color: var(--background-color-disabled-subtle);
+}
+
+.cdx-checkbox__label,
+.cdx-label {
+    color: var(--color-base);
+    font-size: 0.875rem;
+}
+
+.cdx-label__label {
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+/* ---- Progress bar ---- */
+.cdx-progress-bar {
+    height: 4px;
+    overflow: hidden;
+    border-radius: 2px;
+    background-color: var(--background-color-disabled-subtle);
+}
+
+.cdx-progress-bar__bar {
+    height: 100%;
+    width: 100%;
+    border-radius: 2px;
+    background-color: var(--background-color-progressive);
+    transform-origin: left center;
+    animation: cdx-progress-indeterminate 1.3s ease-in-out infinite;
+}
+
+.cdx-progress-bar__bar--determinate {
+    width: calc(var(--cdx-progress-value, 0) * 1%);
+    animation: none;
+    transition: width 0.12s linear;
+}
+
+@keyframes cdx-progress-indeterminate {
+    0% { transform: translateX(-100%) scaleX(0.35); }
+    50% { transform: translateX(0%) scaleX(0.75); }
+    100% { transform: translateX(100%) scaleX(0.35); }
+}
