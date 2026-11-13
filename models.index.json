@@ -1,0 +1,1454 @@
+{
+  "repo": "Destiny4073/BlueArchiveModels",
+  "branch": "main",
+  "dir": "",
+  "generatedAt": "2026-11-13T07:17:18.900Z",
+  "source": "GitHub Contents API (offline import)",
+  "models": [
+    {
+      "name": "Airi (Band).glb",
+      "path": "Airi (Band).glb",
+      "size": 9081612
+    },
+    {
+      "name": "Airi.glb",
+      "path": "Airi.glb",
+      "size": 2211920
+    },
+    {
+      "name": "Akane (Bunny Girl).glb",
+      "path": "Akane (Bunny Girl).glb",
+      "size": 3198168
+    },
+    {
+      "name": "Akane (School Uniform).glb",
+      "path": "Akane (School Uniform).glb",
+      "size": 3090812
+    },
+    {
+      "name": "Akane.glb",
+      "path": "Akane.glb",
+      "size": 6099504
+    },
+    {
+      "name": "Akari (New Year).glb",
+      "path": "Akari (New Year).glb",
+      "size": 5894036
+    },
+    {
+      "name": "Akari.glb",
+      "path": "Akari.glb",
+      "size": 4535776
+    },
+    {
+      "name": "Ako (Dress).glb",
+      "path": "Ako (Dress).glb",
+      "size": 8891300
+    },
+    {
+      "name": "Ako.glb",
+      "path": "Ako.glb",
+      "size": 2006752
+    },
+    {
+      "name": "Aoba.glb",
+      "path": "Aoba.glb",
+      "size": 5397244
+    },
+    {
+      "name": "Arisu (Battle) (Carrier).glb",
+      "path": "Arisu (Battle) (Carrier).glb",
+      "size": 2218380
+    },
+    {
+      "name": "Arisu (Battle) (Scenario).glb",
+      "path": "Arisu (Battle) (Scenario).glb",
+      "size": 3671440
+    },
+    {
+      "name": "Arisu (Battle).glb",
+      "path": "Arisu (Battle).glb",
+      "size": 10569384
+    },
+    {
+      "name": "Arisu (Maid).glb",
+      "path": "Arisu (Maid).glb",
+      "size": 10588352
+    },
+    {
+      "name": "Arisu.glb",
+      "path": "Arisu.glb",
+      "size": 7230720
+    },
+    {
+      "name": "Aru (Dress).glb",
+      "path": "Aru (Dress).glb",
+      "size": 7747780
+    },
+    {
+      "name": "Aru (New Year).glb",
+      "path": "Aru (New Year).glb",
+      "size": 7450720
+    },
+    {
+      "name": "Aru.glb",
+      "path": "Aru.glb",
+      "size": 4948276
+    },
+    {
+      "name": "Asuna (Bunny Girl).glb",
+      "path": "Asuna (Bunny Girl).glb",
+      "size": 4912884
+    },
+    {
+      "name": "Asuna (School Uniform).glb",
+      "path": "Asuna (School Uniform).glb",
+      "size": 8552964
+    },
+    {
+      "name": "Asuna.glb",
+      "path": "Asuna.glb",
+      "size": 6123456
+    },
+    {
+      "name": "Atsuko (Swimsuit).glb",
+      "path": "Atsuko (Swimsuit).glb",
+      "size": 3440824
+    },
+    {
+      "name": "Atsuko.glb",
+      "path": "Atsuko.glb",
+      "size": 4032724
+    },
+    {
+      "name": "Ayane (Swimsuit).glb",
+      "path": "Ayane (Swimsuit).glb",
+      "size": 4408032
+    },
+    {
+      "name": "Ayane.glb",
+      "path": "Ayane.glb",
+      "size": 1276816
+    },
+    {
+      "name": "Azusa (Swimsuit).glb",
+      "path": "Azusa (Swimsuit).glb",
+      "size": 6249608
+    },
+    {
+      "name": "Azusa.glb",
+      "path": "Azusa.glb",
+      "size": 6262996
+    },
+    {
+      "name": "Cherino (Hot Spring).glb",
+      "path": "Cherino (Hot Spring).glb",
+      "size": 9082664
+    },
+    {
+      "name": "Cherino.glb",
+      "path": "Cherino.glb",
+      "size": 7703004
+    },
+    {
+      "name": "Chiaki.glb",
+      "path": "Chiaki.glb",
+      "size": 7584632
+    },
+    {
+      "name": "Chihiro.glb",
+      "path": "Chihiro.glb",
+      "size": 3373988
+    },
+    {
+      "name": "Chinatsu (Hot Spring).glb",
+      "path": "Chinatsu (Hot Spring).glb",
+      "size": 4655924
+    },
+    {
+      "name": "Chinatsu.glb",
+      "path": "Chinatsu.glb",
+      "size": 1926228
+    },
+    {
+      "name": "Chise (Swimsuit).glb",
+      "path": "Chise (Swimsuit).glb",
+      "size": 8096432
+    },
+    {
+      "name": "Chise.glb",
+      "path": "Chise.glb",
+      "size": 4870200
+    },
+    {
+      "name": "Eimi (Battle) (Carrier).glb",
+      "path": "Eimi (Battle) (Carrier).glb",
+      "size": 1809824
+    },
+    {
+      "name": "Eimi (Battle) (Scenario).glb",
+      "path": "Eimi (Battle) (Scenario).glb",
+      "size": 3642396
+    },
+    {
+      "name": "Eimi (Battle).glb",
+      "path": "Eimi (Battle).glb",
+      "size": 9772684
+    },
+    {
+      "name": "Eimi (Swimsuit).glb",
+      "path": "Eimi (Swimsuit).glb",
+      "size": 4107472
+    },
+    {
+      "name": "Eimi.glb",
+      "path": "Eimi.glb",
+      "size": 4993712
+    },
+    {
+      "name": "Eri.glb",
+      "path": "Eri.glb",
+      "size": 17263456
+    },
+    {
+      "name": "Erika.glb",
+      "path": "Erika.glb",
+      "size": 3732904
+    },
+    {
+      "name": "Fubuki (Swimsuit).glb",
+      "path": "Fubuki (Swimsuit).glb",
+      "size": 3678400
+    },
+    {
+      "name": "Fubuki.glb",
+      "path": "Fubuki.glb",
+      "size": 5470492
+    },
+    {
+      "name": "Fuuka (New Year).glb",
+      "path": "Fuuka (New Year).glb",
+      "size": 3078376
+    },
+    {
+      "name": "Fuuka.glb",
+      "path": "Fuuka.glb",
+      "size": 1888188
+    },
+    {
+      "name": "Fuyu.glb",
+      "path": "Fuyu.glb",
+      "size": 10855856
+    },
+    {
+      "name": "Hanae (Christmas).glb",
+      "path": "Hanae (Christmas).glb",
+      "size": 3513816
+    },
+    {
+      "name": "Hanae.glb",
+      "path": "Hanae.glb",
+      "size": 2645944
+    },
+    {
+      "name": "Hanako (Swimsuit).glb",
+      "path": "Hanako (Swimsuit).glb",
+      "size": 7898752
+    },
+    {
+      "name": "Hanako.glb",
+      "path": "Hanako.glb",
+      "size": 2428876
+    },
+    {
+      "name": "Hare (Camping).glb",
+      "path": "Hare (Camping).glb",
+      "size": 7717420
+    },
+    {
+      "name": "Hare.glb",
+      "path": "Hare.glb",
+      "size": 1338780
+    },
+    {
+      "name": "Haruka (Dress).glb",
+      "path": "Haruka (Dress).glb",
+      "size": 6760264
+    },
+    {
+      "name": "Haruka (New Year).glb",
+      "path": "Haruka (New Year).glb",
+      "size": 3489936
+    },
+    {
+      "name": "Haruka.glb",
+      "path": "Haruka.glb",
+      "size": 4495104
+    },
+    {
+      "name": "Haruna (New Year).glb",
+      "path": "Haruna (New Year).glb",
+      "size": 6657204
+    },
+    {
+      "name": "Haruna (Sportswear).glb",
+      "path": "Haruna (Sportswear).glb",
+      "size": 5253468
+    },
+    {
+      "name": "Haruna.glb",
+      "path": "Haruna.glb",
+      "size": 5157224
+    },
+    {
+      "name": "Hasumi (Sportswear).glb",
+      "path": "Hasumi (Sportswear).glb",
+      "size": 5153380
+    },
+    {
+      "name": "Hasumi (Swimsuit).glb",
+      "path": "Hasumi (Swimsuit).glb",
+      "size": 6475352
+    },
+    {
+      "name": "Hasumi.glb",
+      "path": "Hasumi.glb",
+      "size": 4869768
+    },
+    {
+      "name": "Hatsune Miku.glb",
+      "path": "Hatsune Miku.glb",
+      "size": 6344144
+    },
+    {
+      "name": "Hibiki (Cheerleader).glb",
+      "path": "Hibiki (Cheerleader).glb",
+      "size": 9895864
+    },
+    {
+      "name": "Hibiki.glb",
+      "path": "Hibiki.glb",
+      "size": 2979848
+    },
+    {
+      "name": "Hifumi (Swimsuit).glb",
+      "path": "Hifumi (Swimsuit).glb",
+      "size": 5025248
+    },
+    {
+      "name": "Hifumi.glb",
+      "path": "Hifumi.glb",
+      "size": 6141132
+    },
+    {
+      "name": "Hikari.glb",
+      "path": "Hikari.glb",
+      "size": 7912924
+    },
+    {
+      "name": "Himari (Battle).glb",
+      "path": "Himari (Battle).glb",
+      "size": 8128984
+    },
+    {
+      "name": "Himari.glb",
+      "path": "Himari.glb",
+      "size": 2354876
+    },
+    {
+      "name": "Hina (Dress).glb",
+      "path": "Hina (Dress).glb",
+      "size": 10698272
+    },
+    {
+      "name": "Hina (Swimsuit).glb",
+      "path": "Hina (Swimsuit).glb",
+      "size": 5805824
+    },
+    {
+      "name": "Hina.glb",
+      "path": "Hina.glb",
+      "size": 6712016
+    },
+    {
+      "name": "Hinata (Swimsuit).glb",
+      "path": "Hinata (Swimsuit).glb",
+      "size": 4096644
+    },
+    {
+      "name": "Hinata.glb",
+      "path": "Hinata.glb",
+      "size": 7200512
+    },
+    {
+      "name": "Hiyori (Swimsuit).glb",
+      "path": "Hiyori (Swimsuit).glb",
+      "size": 7709868
+    },
+    {
+      "name": "Hiyori.glb",
+      "path": "Hiyori.glb",
+      "size": 3162108
+    },
+    {
+      "name": "Hoshino (Battle).glb",
+      "path": "Hoshino (Battle).glb",
+      "size": 12494116
+    },
+    {
+      "name": "Hoshino (Swimsuit).glb",
+      "path": "Hoshino (Swimsuit).glb",
+      "size": 9687280
+    },
+    {
+      "name": "Hoshino.glb",
+      "path": "Hoshino.glb",
+      "size": 5806092
+    },
+    {
+      "name": "Ibuki.glb",
+      "path": "Ibuki.glb",
+      "size": 15650320
+    },
+    {
+      "name": "Ichika (Swimsuit).glb",
+      "path": "Ichika (Swimsuit).glb",
+      "size": 3575804
+    },
+    {
+      "name": "Ichika.glb",
+      "path": "Ichika.glb",
+      "size": 8888040
+    },
+    {
+      "name": "Iori (Swimsuit).glb",
+      "path": "Iori (Swimsuit).glb",
+      "size": 4854280
+    },
+    {
+      "name": "Iori.glb",
+      "path": "Iori.glb",
+      "size": 6193468
+    },
+    {
+      "name": "Iroha.glb",
+      "path": "Iroha.glb",
+      "size": 10652928
+    },
+    {
+      "name": "Izumi (New Year).glb",
+      "path": "Izumi (New Year).glb",
+      "size": 4421788
+    },
+    {
+      "name": "Izumi (Swimsuit).glb",
+      "path": "Izumi (Swimsuit).glb",
+      "size": 7011116
+    },
+    {
+      "name": "Izumi.glb",
+      "path": "Izumi.glb",
+      "size": 5461400
+    },
+    {
+      "name": "Izuna (Swimsuit).glb",
+      "path": "Izuna (Swimsuit).glb",
+      "size": 8622896
+    },
+    {
+      "name": "Izuna.glb",
+      "path": "Izuna.glb",
+      "size": 9659704
+    },
+    {
+      "name": "Junko (New Year).glb",
+      "path": "Junko (New Year).glb",
+      "size": 7024864
+    },
+    {
+      "name": "Junko.glb",
+      "path": "Junko.glb",
+      "size": 7651484
+    },
+    {
+      "name": "Juri (Part-Timer).glb",
+      "path": "Juri (Part-Timer).glb",
+      "size": 7238620
+    },
+    {
+      "name": "Juri.glb",
+      "path": "Juri.glb",
+      "size": 2247204
+    },
+    {
+      "name": "Kaede.glb",
+      "path": "Kaede.glb",
+      "size": 2197772
+    },
+    {
+      "name": "Kaho.glb",
+      "path": "Kaho.glb",
+      "size": 7358372
+    },
+    {
+      "name": "Kanna (Swimsuit).glb",
+      "path": "Kanna (Swimsuit).glb",
+      "size": 6739096
+    },
+    {
+      "name": "Kanna.glb",
+      "path": "Kanna.glb",
+      "size": 2579092
+    },
+    {
+      "name": "Kanoe.glb",
+      "path": "Kanoe.glb",
+      "size": 6265344
+    },
+    {
+      "name": "Karin (Bunny Girl).glb",
+      "path": "Karin (Bunny Girl).glb",
+      "size": 5429624
+    },
+    {
+      "name": "Karin (School Uniform).glb",
+      "path": "Karin (School Uniform).glb",
+      "size": 5588496
+    },
+    {
+      "name": "Karin.glb",
+      "path": "Karin.glb",
+      "size": 2461100
+    },
+    {
+      "name": "Kasumi.glb",
+      "path": "Kasumi.glb",
+      "size": 11066144
+    },
+    {
+      "name": "Kayoko (Dress).glb",
+      "path": "Kayoko (Dress).glb",
+      "size": 7137764
+    },
+    {
+      "name": "Kayoko (New Year).glb",
+      "path": "Kayoko (New Year).glb",
+      "size": 7624384
+    },
+    {
+      "name": "Kayoko.glb",
+      "path": "Kayoko.glb",
+      "size": 4619948
+    },
+    {
+      "name": "Kazusa (Band).glb",
+      "path": "Kazusa (Band).glb",
+      "size": 8638072
+    },
+    {
+      "name": "Kazusa.glb",
+      "path": "Kazusa.glb",
+      "size": 5720868
+    },
+    {
+      "name": "Kei (Carrier 2).glb",
+      "path": "Kei (Carrier 2).glb",
+      "size": 2084736
+    },
+    {
+      "name": "Kei (Carrier).glb",
+      "path": "Kei (Carrier).glb",
+      "size": 999424
+    },
+    {
+      "name": "Kei (Prototype).glb",
+      "path": "Kei (Prototype).glb",
+      "size": 329972
+    },
+    {
+      "name": "Kei (Scenario 1).glb",
+      "path": "Kei (Scenario 1).glb",
+      "size": 2462816
+    },
+    {
+      "name": "Kei (Scenario 2).glb",
+      "path": "Kei (Scenario 2).glb",
+      "size": 4317768
+    },
+    {
+      "name": "Kei.glb",
+      "path": "Kei.glb",
+      "size": 9627520
+    },
+    {
+      "name": "Kikyou (Swimsuit) (Special).glb",
+      "path": "Kikyou (Swimsuit) (Special).glb",
+      "size": 2891108
+    },
+    {
+      "name": "Kikyou (Swimsuit).glb",
+      "path": "Kikyou (Swimsuit).glb",
+      "size": 5258080
+    },
+    {
+      "name": "Kikyou.glb",
+      "path": "Kikyou.glb",
+      "size": 11969004
+    },
+    {
+      "name": "Kirara.glb",
+      "path": "Kirara.glb",
+      "size": 7478880
+    },
+    {
+      "name": "Kirino (Swimsuit).glb",
+      "path": "Kirino (Swimsuit).glb",
+      "size": 4205696
+    },
+    {
+      "name": "Kirino.glb",
+      "path": "Kirino.glb",
+      "size": 6115956
+    },
+    {
+      "name": "Kisaki (Swimsuit).glb",
+      "path": "Kisaki (Swimsuit).glb",
+      "size": 9850124
+    },
+    {
+      "name": "Kisaki.glb",
+      "path": "Kisaki.glb",
+      "size": 5453068
+    },
+    {
+      "name": "Koharu (Swimsuit).glb",
+      "path": "Koharu (Swimsuit).glb",
+      "size": 10505292
+    },
+    {
+      "name": "Koharu.glb",
+      "path": "Koharu.glb",
+      "size": 5907804
+    },
+    {
+      "name": "Kokona.glb",
+      "path": "Kokona.glb",
+      "size": 5921584
+    },
+    {
+      "name": "Konoka.glb",
+      "path": "Konoka.glb",
+      "size": 8714672
+    },
+    {
+      "name": "Kotama (Camping).glb",
+      "path": "Kotama (Camping).glb",
+      "size": 8076680
+    },
+    {
+      "name": "Kotama.glb",
+      "path": "Kotama.glb",
+      "size": 4353916
+    },
+    {
+      "name": "Kotori (Cheerleader).glb",
+      "path": "Kotori (Cheerleader).glb",
+      "size": 6790340
+    },
+    {
+      "name": "Kotori.glb",
+      "path": "Kotori.glb",
+      "size": 5584464
+    },
+    {
+      "name": "Koyuki (Pajama).glb",
+      "path": "Koyuki (Pajama).glb",
+      "size": 4713800
+    },
+    {
+      "name": "Koyuki.glb",
+      "path": "Koyuki.glb",
+      "size": 6938676
+    },
+    {
+      "name": "Kurumi.glb",
+      "path": "Kurumi.glb",
+      "size": 8513620
+    },
+    {
+      "name": "Maki (Camping).glb",
+      "path": "Maki (Camping).glb",
+      "size": 5428644
+    },
+    {
+      "name": "Maki.glb",
+      "path": "Maki.glb",
+      "size": 5259132
+    },
+    {
+      "name": "Makoto.glb",
+      "path": "Makoto.glb",
+      "size": 4580476
+    },
+    {
+      "name": "Mari (Idol).glb",
+      "path": "Mari (Idol).glb",
+      "size": 7645760
+    },
+    {
+      "name": "Mari (Sportswear).glb",
+      "path": "Mari (Sportswear).glb",
+      "size": 7750924
+    },
+    {
+      "name": "Mari.glb",
+      "path": "Mari.glb",
+      "size": 1914176
+    },
+    {
+      "name": "Marina (Qipao).glb",
+      "path": "Marina (Qipao).glb",
+      "size": 9089268
+    },
+    {
+      "name": "Marina.glb",
+      "path": "Marina.glb",
+      "size": 8054188
+    },
+    {
+      "name": "Mashiro (Swimsuit).glb",
+      "path": "Mashiro (Swimsuit).glb",
+      "size": 2297024
+    },
+    {
+      "name": "Mashiro.glb",
+      "path": "Mashiro.glb",
+      "size": 1434672
+    },
+    {
+      "name": "Material Development Club Member.glb",
+      "path": "Material Development Club Member.glb",
+      "size": 715260
+    },
+    {
+      "name": "Megu.glb",
+      "path": "Megu.glb",
+      "size": 6722560
+    },
+    {
+      "name": "Meru.glb",
+      "path": "Meru.glb",
+      "size": 7975044
+    },
+    {
+      "name": "Michiru (Dress).glb",
+      "path": "Michiru (Dress).glb",
+      "size": 5491016
+    },
+    {
+      "name": "Michiru.glb",
+      "path": "Michiru.glb",
+      "size": 8216680
+    },
+    {
+      "name": "Midori (Battle).glb",
+      "path": "Midori (Battle).glb",
+      "size": 1256696
+    },
+    {
+      "name": "Midori (Maid).glb",
+      "path": "Midori (Maid).glb",
+      "size": 5863896
+    },
+    {
+      "name": "Midori.glb",
+      "path": "Midori.glb",
+      "size": 3871032
+    },
+    {
+      "name": "Mika (Cut-in).glb",
+      "path": "Mika (Cut-in).glb",
+      "size": 1732624
+    },
+    {
+      "name": "Mika (Swimsuit).glb",
+      "path": "Mika (Swimsuit).glb",
+      "size": 7097224
+    },
+    {
+      "name": "Mika.glb",
+      "path": "Mika.glb",
+      "size": 8364828
+    },
+    {
+      "name": "Mimori (Swimsuit).glb",
+      "path": "Mimori (Swimsuit).glb",
+      "size": 2971388
+    },
+    {
+      "name": "Mimori.glb",
+      "path": "Mimori.glb",
+      "size": 6276400
+    },
+    {
+      "name": "Mina.glb",
+      "path": "Mina.glb",
+      "size": 5798804
+    },
+    {
+      "name": "Mine (Idol).glb",
+      "path": "Mine (Idol).glb",
+      "size": 8238748
+    },
+    {
+      "name": "Mine.glb",
+      "path": "Mine.glb",
+      "size": 7997144
+    },
+    {
+      "name": "Minori.glb",
+      "path": "Minori.glb",
+      "size": 4891336
+    },
+    {
+      "name": "Misaka Mikoto.glb",
+      "path": "Misaka Mikoto.glb",
+      "size": 7856524
+    },
+    {
+      "name": "Misaki (Swimsuit).glb",
+      "path": "Misaki (Swimsuit).glb",
+      "size": 5369644
+    },
+    {
+      "name": "Misaki.glb",
+      "path": "Misaki.glb",
+      "size": 4580420
+    },
+    {
+      "name": "Miyako (Swimsuit).glb",
+      "path": "Miyako (Swimsuit).glb",
+      "size": 6483640
+    },
+    {
+      "name": "Miyako.glb",
+      "path": "Miyako.glb",
+      "size": 6884768
+    },
+    {
+      "name": "Miyo.glb",
+      "path": "Miyo.glb",
+      "size": 7795652
+    },
+    {
+      "name": "Miyu (Swimsuit).glb",
+      "path": "Miyu (Swimsuit).glb",
+      "size": 4273632
+    },
+    {
+      "name": "Miyu.glb",
+      "path": "Miyu.glb",
+      "size": 6635512
+    },
+    {
+      "name": "Moe (Swimsuit).glb",
+      "path": "Moe (Swimsuit).glb",
+      "size": 7424852
+    },
+    {
+      "name": "Moe.glb",
+      "path": "Moe.glb",
+      "size": 2063092
+    },
+    {
+      "name": "Momiji.glb",
+      "path": "Momiji.glb",
+      "size": 8425892
+    },
+    {
+      "name": "Momoi (Battle).glb",
+      "path": "Momoi (Battle).glb",
+      "size": 1205444
+    },
+    {
+      "name": "Momoi (Maid).glb",
+      "path": "Momoi (Maid).glb",
+      "size": 5922432
+    },
+    {
+      "name": "Momoi.glb",
+      "path": "Momoi.glb",
+      "size": 4404924
+    },
+    {
+      "name": "Mutsuki (Dress).glb",
+      "path": "Mutsuki (Dress).glb",
+      "size": 4793492
+    },
+    {
+      "name": "Mutsuki (New Year).glb",
+      "path": "Mutsuki (New Year).glb",
+      "size": 5651908
+    },
+    {
+      "name": "Mutsuki.glb",
+      "path": "Mutsuki.glb",
+      "size": 4292304
+    },
+    {
+      "name": "Nagisa (Swimsuit).glb",
+      "path": "Nagisa (Swimsuit).glb",
+      "size": 4286032
+    },
+    {
+      "name": "Nagisa.glb",
+      "path": "Nagisa.glb",
+      "size": 2070356
+    },
+    {
+      "name": "Nagusa (Cut-in).glb",
+      "path": "Nagusa (Cut-in).glb",
+      "size": 1015040
+    },
+    {
+      "name": "Nagusa (Swimsuit).glb",
+      "path": "Nagusa (Swimsuit).glb",
+      "size": 9501132
+    },
+    {
+      "name": "Nagusa.glb",
+      "path": "Nagusa.glb",
+      "size": 8280328
+    },
+    {
+      "name": "Natsu (Band) (No Weapon).glb",
+      "path": "Natsu (Band) (No Weapon).glb",
+      "size": 3598936
+    },
+    {
+      "name": "Natsu (Band).glb",
+      "path": "Natsu (Band).glb",
+      "size": 5669860
+    },
+    {
+      "name": "Natsu.glb",
+      "path": "Natsu.glb",
+      "size": 4416404
+    },
+    {
+      "name": "Neru (Bunny Girl).glb",
+      "path": "Neru (Bunny Girl).glb",
+      "size": 8892180
+    },
+    {
+      "name": "Neru (School Uniform).glb",
+      "path": "Neru (School Uniform).glb",
+      "size": 9171132
+    },
+    {
+      "name": "Neru.glb",
+      "path": "Neru.glb",
+      "size": 8552428
+    },
+    {
+      "name": "Niko.glb",
+      "path": "Niko.glb",
+      "size": 7022848
+    },
+    {
+      "name": "Niya.glb",
+      "path": "Niya.glb",
+      "size": 4029388
+    },
+    {
+      "name": "Noa (Pajama).glb",
+      "path": "Noa (Pajama).glb",
+      "size": 8218888
+    },
+    {
+      "name": "Noa.glb",
+      "path": "Noa.glb",
+      "size": 6404088
+    },
+    {
+      "name": "Nodoka (Hot Spring).glb",
+      "path": "Nodoka (Hot Spring).glb",
+      "size": 2589736
+    },
+    {
+      "name": "Nodoka.glb",
+      "path": "Nodoka.glb",
+      "size": 1678388
+    },
+    {
+      "name": "Nonomi (Swimsuit).glb",
+      "path": "Nonomi (Swimsuit).glb",
+      "size": 5074568
+    },
+    {
+      "name": "Nonomi.glb",
+      "path": "Nonomi.glb",
+      "size": 5047772
+    },
+    {
+      "name": "Nozomi.glb",
+      "path": "Nozomi.glb",
+      "size": 6007672
+    },
+    {
+      "name": "Otogi.glb",
+      "path": "Otogi.glb",
+      "size": 13654796
+    },
+    {
+      "name": "Pina (Guide).glb",
+      "path": "Pina (Guide).glb",
+      "size": 4283740
+    },
+    {
+      "name": "Pina.glb",
+      "path": "Pina.glb",
+      "size": 4190756
+    },
+    {
+      "name": "Rabu.glb",
+      "path": "Rabu.glb",
+      "size": 8464072
+    },
+    {
+      "name": "Rei.glb",
+      "path": "Rei.glb",
+      "size": 8390544
+    },
+    {
+      "name": "Reijo.glb",
+      "path": "Reijo.glb",
+      "size": 6710628
+    },
+    {
+      "name": "Reisa (Magical) (Special).glb",
+      "path": "Reisa (Magical) (Special).glb",
+      "size": 3518816
+    },
+    {
+      "name": "Reisa (Magical).glb",
+      "path": "Reisa (Magical).glb",
+      "size": 4598280
+    },
+    {
+      "name": "Reisa.glb",
+      "path": "Reisa.glb",
+      "size": 5806536
+    },
+    {
+      "name": "Rena.glb",
+      "path": "Rena.glb",
+      "size": 10056152
+    },
+    {
+      "name": "Renge (Swimsuit).glb",
+      "path": "Renge (Swimsuit).glb",
+      "size": 7529704
+    },
+    {
+      "name": "Renge.glb",
+      "path": "Renge.glb",
+      "size": 9463452
+    },
+    {
+      "name": "Rio (Battle) (Scenario).glb",
+      "path": "Rio (Battle) (Scenario).glb",
+      "size": 1863996
+    },
+    {
+      "name": "Rio (Battle).glb",
+      "path": "Rio (Battle).glb",
+      "size": 5238192
+    },
+    {
+      "name": "Rio.glb",
+      "path": "Rio.glb",
+      "size": 2894536
+    },
+    {
+      "name": "Ritsu.glb",
+      "path": "Ritsu.glb",
+      "size": 5152744
+    },
+    {
+      "name": "Rumi.glb",
+      "path": "Rumi.glb",
+      "size": 7077524
+    },
+    {
+      "name": "Saki (Swimsuit).glb",
+      "path": "Saki (Swimsuit).glb",
+      "size": 9150248
+    },
+    {
+      "name": "Saki.glb",
+      "path": "Saki.glb",
+      "size": 3669176
+    },
+    {
+      "name": "Sakurako (Idol).glb",
+      "path": "Sakurako (Idol).glb",
+      "size": 8551240
+    },
+    {
+      "name": "Sakurako.glb",
+      "path": "Sakurako.glb",
+      "size": 7030664
+    },
+    {
+      "name": "Saori (Dress) (Cafe).glb",
+      "path": "Saori (Dress) (Cafe).glb",
+      "size": 1956628
+    },
+    {
+      "name": "Saori (Dress).glb",
+      "path": "Saori (Dress).glb",
+      "size": 6292972
+    },
+    {
+      "name": "Saori (Swimsuit).glb",
+      "path": "Saori (Swimsuit).glb",
+      "size": 8296124
+    },
+    {
+      "name": "Saori.glb",
+      "path": "Saori.glb",
+      "size": 6677860
+    },
+    {
+      "name": "Saten Ruiko.glb",
+      "path": "Saten Ruiko.glb",
+      "size": 2078468
+    },
+    {
+      "name": "Satsuki.glb",
+      "path": "Satsuki.glb",
+      "size": 4342948
+    },
+    {
+      "name": "Saya (Casual).glb",
+      "path": "Saya (Casual).glb",
+      "size": 3169544
+    },
+    {
+      "name": "Saya.glb",
+      "path": "Saya.glb",
+      "size": 2581880
+    },
+    {
+      "name": "Seia (Swimsuit).glb",
+      "path": "Seia (Swimsuit).glb",
+      "size": 7093788
+    },
+    {
+      "name": "Seia.glb",
+      "path": "Seia.glb",
+      "size": 9486584
+    },
+    {
+      "name": "Sena (Casual).glb",
+      "path": "Sena (Casual).glb",
+      "size": 8689592
+    },
+    {
+      "name": "Sena.glb",
+      "path": "Sena.glb",
+      "size": 4542020
+    },
+    {
+      "name": "Serika (New Year).glb",
+      "path": "Serika (New Year).glb",
+      "size": 3278524
+    },
+    {
+      "name": "Serika (Swimsuit).glb",
+      "path": "Serika (Swimsuit).glb",
+      "size": 3672884
+    },
+    {
+      "name": "Serika.glb",
+      "path": "Serika.glb",
+      "size": 4199004
+    },
+    {
+      "name": "Serina (Christmas).glb",
+      "path": "Serina (Christmas).glb",
+      "size": 6252052
+    },
+    {
+      "name": "Serina.glb",
+      "path": "Serina.glb",
+      "size": 1869200
+    },
+    {
+      "name": "Shigure (Hot Spring).glb",
+      "path": "Shigure (Hot Spring).glb",
+      "size": 4745804
+    },
+    {
+      "name": "Shigure.glb",
+      "path": "Shigure.glb",
+      "size": 6068364
+    },
+    {
+      "name": "Shimiko.glb",
+      "path": "Shimiko.glb",
+      "size": 4559580
+    },
+    {
+      "name": "Shiroko (Riding).glb",
+      "path": "Shiroko (Riding).glb",
+      "size": 4652964
+    },
+    {
+      "name": "Shiroko (Swimsuit).glb",
+      "path": "Shiroko (Swimsuit).glb",
+      "size": 3710408
+    },
+    {
+      "name": "Shiroko.glb",
+      "path": "Shiroko.glb",
+      "size": 4889640
+    },
+    {
+      "name": "Shiroko＊Terror.glb",
+      "path": "Shiroko＊Terror.glb",
+      "size": 8962464
+    },
+    {
+      "name": "Shizuko (Swimsuit).glb",
+      "path": "Shizuko (Swimsuit).glb",
+      "size": 3111684
+    },
+    {
+      "name": "Shizuko.glb",
+      "path": "Shizuko.glb",
+      "size": 1832516
+    },
+    {
+      "name": "Shokuhou Misaki.glb",
+      "path": "Shokuhou Misaki.glb",
+      "size": 6962688
+    },
+    {
+      "name": "Shun (Kid).glb",
+      "path": "Shun (Kid).glb",
+      "size": 4693696
+    },
+    {
+      "name": "Shun (Swimsuit) (1).glb",
+      "path": "Shun (Swimsuit) (1).glb",
+      "size": 8028288
+    },
+    {
+      "name": "Shun (Swimsuit) (2).glb",
+      "path": "Shun (Swimsuit) (2).glb",
+      "size": 7330592
+    },
+    {
+      "name": "Shun.glb",
+      "path": "Shun.glb",
+      "size": 7337644
+    },
+    {
+      "name": "Subaru.glb",
+      "path": "Subaru.glb",
+      "size": 10703104
+    },
+    {
+      "name": "Sumire (Part-Timer).glb",
+      "path": "Sumire (Part-Timer).glb",
+      "size": 3968584
+    },
+    {
+      "name": "Sumire.glb",
+      "path": "Sumire.glb",
+      "size": 4834072
+    },
+    {
+      "name": "Suzumi (Magical).glb",
+      "path": "Suzumi (Magical).glb",
+      "size": 9495824
+    },
+    {
+      "name": "Suzumi.glb",
+      "path": "Suzumi.glb",
+      "size": 5035416
+    },
+    {
+      "name": "Takane.glb",
+      "path": "Takane.glb",
+      "size": 10123876
+    },
+    {
+      "name": "Toki (Battle) (Scenario).glb",
+      "path": "Toki (Battle) (Scenario).glb",
+      "size": 5000428
+    },
+    {
+      "name": "Toki (Battle).glb",
+      "path": "Toki (Battle).glb",
+      "size": 11141812
+    },
+    {
+      "name": "Toki (Bunny Girl).glb",
+      "path": "Toki (Bunny Girl).glb",
+      "size": 10283360
+    },
+    {
+      "name": "Toki (Cafe).glb",
+      "path": "Toki (Cafe).glb",
+      "size": 1724512
+    },
+    {
+      "name": "Toki.glb",
+      "path": "Toki.glb",
+      "size": 14009820
+    },
+    {
+      "name": "Tomoe (Qipao).glb",
+      "path": "Tomoe (Qipao).glb",
+      "size": 6954324
+    },
+    {
+      "name": "Tomoe.glb",
+      "path": "Tomoe.glb",
+      "size": 5190396
+    },
+    {
+      "name": "Tsubaki (Guide).glb",
+      "path": "Tsubaki (Guide).glb",
+      "size": 3138332
+    },
+    {
+      "name": "Tsubaki.glb",
+      "path": "Tsubaki.glb",
+      "size": 3658376
+    },
+    {
+      "name": "Tsukuyo (Dress).glb",
+      "path": "Tsukuyo (Dress).glb",
+      "size": 9120584
+    },
+    {
+      "name": "Tsukuyo.glb",
+      "path": "Tsukuyo.glb",
+      "size": 10069972
+    },
+    {
+      "name": "Tsurugi (Swimsuit).glb",
+      "path": "Tsurugi (Swimsuit).glb",
+      "size": 6858356
+    },
+    {
+      "name": "Tsurugi.glb",
+      "path": "Tsurugi.glb",
+      "size": 6360420
+    },
+    {
+      "name": "Ui (Swimsuit).glb",
+      "path": "Ui (Swimsuit).glb",
+      "size": 9118160
+    },
+    {
+      "name": "Ui.glb",
+      "path": "Ui.glb",
+      "size": 6524612
+    },
+    {
+      "name": "Umika.glb",
+      "path": "Umika.glb",
+      "size": 8337364
+    },
+    {
+      "name": "Utaha (Cheerleader).glb",
+      "path": "Utaha (Cheerleader).glb",
+      "size": 6787972
+    },
+    {
+      "name": "Utaha.glb",
+      "path": "Utaha.glb",
+      "size": 1606844
+    },
+    {
+      "name": "Wakamo (Swimsuit).glb",
+      "path": "Wakamo (Swimsuit).glb",
+      "size": 10185368
+    },
+    {
+      "name": "Wakamo.glb",
+      "path": "Wakamo.glb",
+      "size": 5725588
+    },
+    {
+      "name": "Yakumo.glb",
+      "path": "Yakumo.glb",
+      "size": 4900124
+    },
+    {
+      "name": "Yoshimi (Band).glb",
+      "path": "Yoshimi (Band).glb",
+      "size": 12227928
+    },
+    {
+      "name": "Yoshimi.glb",
+      "path": "Yoshimi.glb",
+      "size": 2110612
+    },
+    {
+      "name": "Yukari (Swimsuit).glb",
+      "path": "Yukari (Swimsuit).glb",
+      "size": 7369940
+    },
+    {
+      "name": "Yukari.glb",
+      "path": "Yukari.glb",
+      "size": 8147860
+    },
+    {
+      "name": "Yuuka (Pajama).glb",
+      "path": "Yuuka (Pajama).glb",
+      "size": 7901488
+    },
+    {
+      "name": "Yuuka (Sportswear).glb",
+      "path": "Yuuka (Sportswear).glb",
+      "size": 9093156
+    },
+    {
+      "name": "Yuuka.glb",
+      "path": "Yuuka.glb",
+      "size": 5083936
+    },
+    {
+      "name": "Yuzu (Battle) (Carrier).glb",
+      "path": "Yuzu (Battle) (Carrier).glb",
+      "size": 2214120
+    },
+    {
+      "name": "Yuzu (Battle) (Cut-in).glb",
+      "path": "Yuzu (Battle) (Cut-in).glb",
+      "size": 1610016
+    },
+    {
+      "name": "Yuzu (Battle).glb",
+      "path": "Yuzu (Battle).glb",
+      "size": 4876228
+    },
+    {
+      "name": "Yuzu (Maid).glb",
+      "path": "Yuzu (Maid).glb",
+      "size": 6114528
+    },
+    {
+      "name": "Yuzu.glb",
+      "path": "Yuzu.glb",
+      "size": 4927036
+    }
+  ]
+}

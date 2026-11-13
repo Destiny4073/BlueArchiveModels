@@ -286,6 +286,7 @@ input::placeholder { color: #626d7c; }
 .log-time { flex: none; color: #5e6b7c; }
 .log-tag { flex: none; color: #7fa8ff; }
 .log-row.error .log-tag, .log-row.error .log-msg { color: #ff9a8f; }
+.log-row.warn .log-tag, .log-row.warn .log-msg { color: #e0b45c; }
 .log-row.ready .log-tag, .log-row.ready .log-msg { color: #7fd9ac; }
 
 .snippet {

@@ -5,6 +5,7 @@
   "branch": "main",
   "dir": "",
   "defaultModel": "",
+  "index": "models.index.json",
   "apiBase": "https://api.github.com",
   "probe": true,
   "cacheMinutes": 10,

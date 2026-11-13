@@ -21,7 +21,9 @@
 
     var VERSION = 'three@0.185.1';
     var PROBE = 'package.json';           // tiny file present in the npm package
+    var MODULE = 'build/three.module.min.js';
     var PROBE_TIMEOUT = 2600;
+    var VERIFY_TIMEOUT = 9000;            // full module download, one at a time
     var CACHE_KEY = 'modelviewer.cdn.v1';
     var CACHE_TTL = 7 * 24 * 3600 * 1000;
 
@@ -93,6 +95,54 @@
         });
     }
 
+    /**
+     * A healthy `package.json` does NOT prove the ES module works: a mirror
+     * can serve that tiny file and then fail `three.module.min.js` with
+     * ERR_HTTP2_PROTOCOL_ERROR (observed on cdn.jsdmirror.com). Fetch the
+     * real module once, before installing the import map (an import map
+     * cannot be added after any module has started loading). Success also
+     * warms the HTTP cache for the gadget's later import().
+     */
+    function verifyModule(source, timeoutMs) {
+        return new Promise(function (resolve) {
+            var controller = typeof AbortController !== 'undefined'
+                ? new AbortController() : null;
+            var done = false;
+            function finish(ok) {
+                if (done) { return; }
+                done = true; clearTimeout(timer);
+                resolve(ok);
+            }
+            var timer = setTimeout(function () {
+                if (controller) { controller.abort(); }
+                finish(false);
+            }, timeoutMs);
+            var opts = { mode: 'cors', cache: 'force-cache' };
+            if (controller) { opts.signal = controller.signal; }
+            fetch(source.base + MODULE, opts).then(function (res) {
+                var type = res.headers.get('content-type') || '';
+                if (!res.ok || /text\/html/i.test(type)) { finish(false); return; }
+                return res.arrayBuffer().then(function (buf) {
+                    // three.module.min.js is ~700 KB; error pages, LFS
+                    // pointers and plain-text responses are tiny (or HTML).
+                    finish(buf.byteLength > 100000);
+                });
+            }, function () { finish(false); })
+                .catch(function () { finish(false); });
+        });
+    }
+
+    /** Try the fastest mirror first, then the rest until one really works. */
+    function verifyChain(order) {
+        function step(i) {
+            if (i >= order.length) { return Promise.resolve(null); }
+            return verifyModule(order[i], VERIFY_TIMEOUT).then(function (ok) {
+                return ok ? order[i] : step(i + 1);
+            });
+        }
+        return step(0);
+    }
+
     /** Race every mirror; first healthy response wins (fastest mirror). */
     function race(order, timeoutMs) {
         return new Promise(function (resolve) {
@@ -151,17 +201,30 @@
             order.sort(function (a, b) { return (a.id === cached ? -1 : b.id === cached ? 1 : 0); });
         }
         return race(order, PROBE_TIMEOUT).then(function (winner) {
-            if (winner) {
-                state.id = winner.id; state.label = winner.label; state.base = winner.base;
-                state.reason = '自动探测最快可用源';
-                writeCache(winner.id);
-            } else {
-                state.degraded = true;
-                state.reason = '所有公共 CDN 探测均失败，回退默认源；可用 ?cdn= 手动指定';
-            }
-            state.probed = true;
-            installMap(state.base);
-            return state;
+            // Verify the actual ES module, not just package.json. Start with
+            // the fastest mirror; fall through on a broken/large-file error.
+            var chain = winner
+                ? [winner].concat(order.filter(function (s) { return s !== winner; }))
+                : order.slice();
+            return verifyChain(chain).then(function (verified) {
+                if (verified) {
+                    state.id = verified.id; state.label = verified.label;
+                    state.base = verified.base;
+                    state.reason = '自动探测最快可用源（已校验 ES 模块）';
+                    writeCache(verified.id);
+                } else {
+                    state.degraded = true;
+                    if (winner) {
+                        state.id = winner.id; state.label = winner.label;
+                        state.base = winner.base;
+                    }
+                    state.reason = '公共 CDN 的 three.module.min.js 均不可用，'
+                        + '回退探测结果；可用 ?cdn= 手动指定';
+                }
+                state.probed = true;
+                installMap(state.base);
+                return state;
+            });
         });
     })();
 

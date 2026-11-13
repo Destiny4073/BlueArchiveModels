@@ -129,18 +129,18 @@
     /**
      * Model discovery, two modes:
      *
-     *  remote (default on *.github.io) — the model library (hundreds of MB)
-     *  stays in the repository's `main` branch while this site is deployed
-     *  from a pages branch / Pages artifact that ships code only. A single
-     *  GitHub Contents API call lists the whole directory (up to 1000
-     *  entries), so ~100-300 models cost exactly one request. The result is
-     *  cached in sessionStorage because unauthenticated API calls are limited
-     *  to 60/hour/IP.
+     *  remote (default) — the model library (hundreds of MB) stays in the
+     *  repository's `main` branch while this site deploys code only. A small
+     *  same-origin `models.index.json` lists every model, so a normal visit
+     *  costs ZERO GitHub API calls. That matters: unauthenticated API calls
+     *  are limited to 60/hour/IP, and a public site sharing one IP quickly
+     *  gets 403 + an empty list. The live API is only used by "刷新列表" or
+     *  ?live=1, with the static index as the fallback.
      *
      *  local — models/manifest.json + ./models/, used for local development
-     *  and as a fallback when the remote directory cannot be listed. The repo
-     *  ships no model binaries: an empty/missing manifest yields zero models
-     *  and a clear hint, never a fake built-in list.
+     *  and as a fallback when neither the index nor the API yields models.
+     *  The repo ships no model binaries: an empty/missing manifest yields
+     *  zero models and a clear hint, never a fake built-in list.
      *
      * Model bytes are fetched through a configurable list of ghproxy prefixes
      * in front of raw.githubusercontent.com. A HEAD probe picks the first
@@ -151,8 +151,8 @@
     var MODEL_EXT = /\.(glb|gltf|fbx|obj|stl|dae)$/i;
     var DEFAULT_CONFIG = {
         mode: 'remote', repo: '', repoCandidates: [], branch: 'main', dir: '',
-        defaultModel: '', apiBase: 'https://api.github.com',
-        probe: true, cacheMinutes: 10,
+        defaultModel: '', index: 'models.index.json',
+        apiBase: 'https://api.github.com', probe: true, cacheMinutes: 10,
         sources: [
             { id: 'gh-proxy.com', prefix: 'https://gh-proxy.com/' },
             { id: 'ghproxy.net', prefix: 'https://ghproxy.net/' },
@@ -208,6 +208,10 @@
                 if (!Array.isArray(cfg.sources) || !cfg.sources.length) {
                     cfg.sources = DEFAULT_CONFIG.sources;
                 }
+                // Remember whether the repo was explicitly configured: a
+                // static index carries its own canonical repo and wins over
+                // hostname inference in that case.
+                cfg.repoExplicit = Boolean(qs('repo') || (file && file.repo));
                 // URL overrides: custom domains, forked repos, testing.
                 var owner = qs('owner') || inferOwner();
                 var primary = expandRepo(
@@ -223,7 +227,9 @@
                 cfg.repo = cfg.repos[0] || '';
                 cfg.branch = qs('branch') || cfg.branch || 'main';
                 if (qs('dir')) { cfg.dir = qs('dir'); }
-                cfg.apiBase = qs('api') || cfg.apiBase;
+                // ?api= expects a real URL; ignore stray values so `?api=1`
+                // cannot silently replace the API root with the string "1".
+                if (/^(https?:\/\/|\/)/i.test(qs('api'))) { cfg.apiBase = qs('api'); }
                 if (qs('prefix')) { cfg.sources = [{ id: 'custom', prefix: qs('prefix') }]; }
                 if (qs('probe') === '0') { cfg.probe = false; }
                 return cfg;
@@ -376,18 +382,85 @@
         });
     }
 
+    /**
+     * Same-origin static index. GitHub's unauthenticated REST API is capped
+     * at 60 requests/hour/IP, so a public site must not depend on it for
+     * every visit: one shared IP (or a few reloads) yields 403 and an empty
+     * model list. The index is generated once by scripts/build-index.mjs.
+     */
+    function loadIndex(cfg) {
+        if (!cfg.index || cfg.mode === 'local') { return Promise.resolve(null); }
+        var url = './' + String(cfg.index).replace(/^\.\//, '');
+        return fetch(url, { cache: 'no-store' })
+            .then(function (res) { return res.ok ? res.json() : null; })
+            .catch(function () { return null; })
+            .then(function (data) {
+                if (!data || !Array.isArray(data.models) || !data.models.length) {
+                    return null;
+                }
+                return {
+                    repo: data.repo || '', branch: data.branch || '', dir: data.dir || '',
+                    models: data.models.filter(function (m) { return m && m.name; })
+                        .map(function (m) {
+                            return { name: m.name, path: m.path || m.name, size: m.size || 0 };
+                        })
+                };
+            });
+    }
+
+    function syncIndexRepo(cfg, idx) {
+        // The index was generated for one specific repo, so it is more
+        // trustworthy than guessing from the Pages hostname (custom domains
+        // cannot guess at all). An explicit `repo` in the config still wins.
+        // Also feeds the live-API path, which otherwise has no repo to scan.
+        if (!cfg.repoExplicit && idx.repo) {
+            cfg.repo = idx.repo;
+            cfg.repos = [idx.repo].concat(cfg.repos.filter(function (r) {
+                return r !== idx.repo;
+            }));
+        }
+    }
+
+    function applyIndex(cfg, idx) {
+        syncIndexRepo(cfg, idx);
+        return { models: idx.models, dir: idx.dir,
+            origin: '静态模型索引', repo: cfg.repo };
+    }
+
     function fetchModelList(force) {
         return loadConfig().then(function (cfg) {
             REMOTE.config = cfg;
-            if (cfg.mode === 'remote' && cfg.repos.length && qs('scan') !== '1') {
-                return discoverRemote(cfg, force).then(function (found) {
-                    // Raw URLs must point at the repo that actually had models,
-                    // not the site repo that was probed first.
-                    if (found && found.repo) { cfg.repo = found.repo; }
-                    return found;
+            var skipIndex = qs('scan') === '1';
+            var preferApi = force || qs('live') === '1' || skipIndex;
+            // Always load the index (unless ?scan=1): it is also the fallback
+            // when the live API returns 403.
+            return (skipIndex ? Promise.resolve(null) : loadIndex(cfg))
+                .then(function (idx) {
+                    if (idx) { syncIndexRepo(cfg, idx); }
+                    // Ordinary visit: index is authoritative, zero API calls.
+                    if (idx && !preferApi) { return applyIndex(cfg, idx); }
+                    // "刷新列表" / ?live=1 re-scan the live API, but keep the
+                    // index as a fallback so a 403 never empties the list.
+                    var live;
+                    if (cfg.mode === 'remote' && cfg.repos.length && qs('scan') !== '1') {
+                        live = discoverRemote(cfg, force).then(function (found) {
+                            // Raw URLs must target the repo that had models.
+                            if (found && found.repo) { cfg.repo = found.repo; }
+                            return found;
+                        });
+                    } else {
+                        live = Promise.resolve(null);
+                    }
+                    return live.then(function (found) {
+                        if (found && found.models.length) { return found; }
+                        if (idx) {
+                            var fallback = applyIndex(cfg, idx);
+                            fallback.apiFailed = true;
+                            return fallback;
+                        }
+                        return found || null;
+                    });
                 });
-            }
-            return localFallback();
         }).then(function (found) { return found || localFallback(); });
     }
 
@@ -572,6 +645,10 @@
                 useSelectedModel();
             }
             addLog('list', REMOTE.origin + ' · ' + REMOTE.models.length + ' 个模型');
+            if (found.apiFailed) {
+                addLog('api', '线上目录 API 不可用（403 / 触发 60 次每小时限流），'
+                    + '已使用静态索引；模型有增减时运行 npm run index 重建', 'warn');
+            }
             if (REMOTE.config && REMOTE.config.mode === 'remote'
                 && !REMOTE.models.length) {
                 addLog('error', '远端模型仓库未命中：'
