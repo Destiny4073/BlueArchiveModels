@@ -29,8 +29,8 @@
         'reset', 'fullscreen'
     ];
     var DEFAULT_CONTROLS = CONTROL_NAMES.slice();
-    /** Model selected on first load when no ?model= is given. */
-    var DEFAULT_MODEL = 'Seia.glb';
+    // No built-in model names anywhere: the first discovered entry is selected
+    // on load, and ?model=<name> picks a specific one from that list.
 
     /**
      * Mirrors bluearchive.wiki's Module:ModelViewer DEFAULTS. The decisive one
@@ -138,7 +138,9 @@
      *  to 60/hour/IP.
      *
      *  local — models/manifest.json + ./models/, used for local development
-     *  and as a fallback when the remote directory cannot be listed.
+     *  and as a fallback when the remote directory cannot be listed. The repo
+     *  ships no model binaries: an empty/missing manifest yields zero models
+     *  and a clear hint, never a fake built-in list.
      *
      * Model bytes are fetched through a configurable list of ghproxy prefixes
      * in front of raw.githubusercontent.com. A HEAD probe picks the first
@@ -149,7 +151,8 @@
     var MODEL_EXT = /\.(glb|gltf|fbx|obj|stl|dae)$/i;
     var DEFAULT_CONFIG = {
         mode: 'remote', repo: '', repoCandidates: [], branch: 'main', dir: '',
-        apiBase: 'https://api.github.com', probe: true, cacheMinutes: 10,
+        defaultModel: '', apiBase: 'https://api.github.com',
+        probe: true, cacheMinutes: 10,
         sources: [
             { id: 'gh-proxy.com', prefix: 'https://gh-proxy.com/' },
             { id: 'ghproxy.net', prefix: 'https://ghproxy.net/' },
@@ -367,12 +370,9 @@
                 dir: '', origin: qs('scan') === '1' ? '本地实时扫描' : '本地 models/manifest.json'
             };
         }).catch(function () {
-            return {
-                models: ['Seia.glb', 'Flower.glb', 'Soldier.glb'].map(function (n) {
-                    return { name: n, path: n, size: 0, local: true };
-                }),
-                dir: '', origin: '内置兜底列表'
-            };
+            // Never invent model names: the site has no bundled models, so a
+            // missing manifest means an empty list plus an actionable hint.
+            return { models: [], dir: '', origin: '没有可用模型' };
         });
     }
 
@@ -490,14 +490,19 @@
         var el = $('sourceInfo');
         if (!el) { return; }
         var cfg = REMOTE.config || {};
-        var remoteMiss = /^(本地|内置)/.test(REMOTE.origin)
+        var remoteMiss = !REMOTE.models.length
             && cfg.mode === 'remote' && (cfg.repos || []).length > 0;
         if (remoteMiss) {
             el.textContent = '⚠ ' + (cfg.repos || []).join(' / ') + '@' + cfg.branch
-                + ' 都没列出模型，当前是内置兜底列表（线上会 404）。请检查仓库是否 public、'
-                + 'models.config.json 的 repo / repoCandidates，或用 ?repo=<owner>/<repo> 指定。';
+                + ' 没列出任何模型。本站点不内置模型文件，请确认仓库是 public、模型在 '
+                + cfg.branch + ' 分支，检查 models.config.json 的 repo / repoCandidates，'
+                + '或用 ?repo=<owner>/<repo> 指定；也可以直接「选择本地文件」或填写模型 URL。';
             el.className = 'source-info error';
-        } else if (/^(本地|内置)/.test(REMOTE.origin)) {
+        } else if (!REMOTE.models.length) {
+            el.textContent = '⚠ 没有任何可用模型（' + REMOTE.origin + '）。'
+                + '把模型放进 models/ 并运行 npm run scan，或用「选择本地文件」/填写模型 URL。';
+            el.className = 'source-info error';
+        } else if (/^(本地|没有)/.test(REMOTE.origin)) {
             el.textContent = REMOTE.origin + ' · ' + REMOTE.models.length + ' 个模型（同源）';
             el.className = 'source-info local';
         } else {
@@ -520,7 +525,8 @@
         if (!REMOTE.models.length || REMOTE.models[0].local) {
             var local = document.createElement('option');
             local.value = 'local';
-            local.textContent = '本地 models/（同源）';
+            local.textContent = REMOTE.models.length
+                ? '本地 models/（同源）' : '（无可用模型）';
             sel.appendChild(local);
             sel.value = 'local';
             sel.disabled = true;
@@ -553,22 +559,21 @@
             if (!source) {
                 // ?model=X.glb picks from the discovered list; a full URL or a
                 // path with slashes is handed straight to the viewer.
-                var initial = qs('model');
+                var initial = qs('model')
+                    || (REMOTE.config && REMOTE.config.defaultModel) || '';
                 if (initial && /[/\\]|^https?:/.test(initial)) { useUrl(initial); return; }
                 if (initial) {
                     var wanted = Array.from(modelSelect.options)
                         .find(function (o) { return o.dataset.name === initial; });
                     if (wanted) { modelSelect.value = wanted.value; }
-                } else {
-                    var def = Array.from(modelSelect.options)
-                        .find(function (o) { return o.dataset.name === DEFAULT_MODEL; });
-                    if (def) { modelSelect.value = def.value; }
                 }
+                // No hard-coded default: renderOptions() already selects the
+                // first discovered entry. An empty list loads nothing at all.
                 useSelectedModel();
             }
             addLog('list', REMOTE.origin + ' · ' + REMOTE.models.length + ' 个模型');
             if (REMOTE.config && REMOTE.config.mode === 'remote'
-                && /^(本地|内置)/.test(REMOTE.origin)) {
+                && !REMOTE.models.length) {
                 addLog('error', '远端模型仓库未命中：'
                     + (REMOTE.config.repos || []).join(' / ') + '@'
                     + REMOTE.config.branch + '，请检查 repo / repoCandidates', 'error');
@@ -783,9 +788,13 @@
         setPresetActive('wiki');
         formatSelect.value = 'auto';
         urlInput.value = '';
-        var def = Array.from(modelSelect.options)
-            .find(function (o) { return o.dataset.name === DEFAULT_MODEL; });
-        modelSelect.value = def ? def.value : modelSelect.options[0].value;
+        // Reset to the configured preference, else the first discovered
+        // model. No hard-coded model names live in the code.
+        var preferred = REMOTE.config && REMOTE.config.defaultModel;
+        var match = preferred && Array.from(modelSelect.options)
+            .find(function (o) { return o.dataset.name === preferred; });
+        modelSelect.selectedIndex = match
+            ? match.index : (modelSelect.options.length ? 0 : -1);
         useSelectedModel();
     }
 

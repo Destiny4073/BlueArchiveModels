@@ -58,7 +58,7 @@
         <div class="source-info" id="sourceInfo">正在发现模型…</div>
         <div class="field">
           <label for="modelFilter">筛选模型名称</label>
-          <input type="text" id="modelFilter" placeholder="例如 Seia / Bunny / (Band)" spellcheck="false">
+          <input type="text" id="modelFilter" placeholder="输入名称片段筛选，例如 (Band)" spellcheck="false">
         </div>
         <div class="field">
           <label for="modelSelect">模型列表（选中即加载）</label>
@@ -89,7 +89,7 @@
             <option value="dae">dae</option>
           </select>
         </div>
-        <p class="note">模型文件<strong>不随站点一起部署</strong>：页面部署在 Pages 分支（或 Actions 产物），模型留在 <code>main</code> 分支，由 <code>GitHub Contents API</code> 一次请求列出整个目录（上限 1000 项，无需清单文件）。模型字节走 <code>ghproxy</code> 前缀加速，逐个 <code>HEAD</code> 探测后自动选可用源，失败自动切换。配置见 <code>models.config.json</code>，也可用 <code>?repo=owner/repo&amp;branch=main&amp;dir=models</code> 覆盖。本地开发仍回退到 <code>models/manifest.json</code> / <code>?scan=1</code>。支持 <code>glb / gltf / fbx / obj / stl / dae</code>，可拖文件到画布，OBJ 可同时选中 <code>.mtl</code>。</p>
+        <p class="note">模型文件<strong>不随站点一起部署</strong>：页面部署在 Pages 分支（或 Actions 产物），模型留在 <code>main</code> 分支，由 <code>GitHub Contents API</code> 一次请求列出整个目录（上限 1000 项，无需清单文件）。模型字节走 <code>ghproxy</code> 前缀加速，逐个 <code>HEAD</code> 探测后自动选可用源，失败自动切换。配置见 <code>models.config.json</code>，也可用 <code>?repo=owner/repo&amp;branch=main&amp;dir=models</code> 覆盖。<strong>仓库与 <code>dist/</code> 均不内置任何模型文件</strong>；本地开发可自行放入 <code>models/</code> 再用 <code>npm run scan</code> / <code>?scan=1</code>，或直接选择本地文件、填写模型 URL。支持 <code>glb / gltf / fbx / obj / stl / dae</code>，可拖文件到画布，OBJ 可同时选中 <code>.mtl</code>。</p>
       </section>
 
       <section class="panel">
